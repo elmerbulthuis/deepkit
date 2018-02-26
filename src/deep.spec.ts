@@ -99,3 +99,29 @@ test("transformer set", async t => {
     }
 
 });
+
+test("transformer merge", async t => {
+
+    {
+        const dst = transform(src, ({ merge }) => {
+            merge([], {
+                a: {
+                    aa: "aaa",
+                },
+            });
+        });
+        t.notEqual(dst, src);
+
+        t.deepEqual(dst, {
+            a: {
+                aa: "aaa",
+            },
+            b: {
+                c: "bc",
+                d: { 1: "bd1" },
+            },
+            2: 2,
+        });
+    }
+
+});

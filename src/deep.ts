@@ -18,6 +18,7 @@ export interface Transformer {
     get(path: PropertyPath, defaultValue?: any): any;
     set(path: PropertyPath, value: any): void;
     destroy(path: PropertyPath): void;
+    merge(path: PropertyPath, value: any): void;
 }
 
 export function transform<T extends object>(
@@ -46,7 +47,11 @@ export function transform<T extends object>(
             if (typeof targetParent !== "object") throw new Error(`${targetParent} is not an object`);
 
             const key = path[keyIndex];
-            if (key in targetParent) {
+            if (
+                key in targetParent &&
+                typeof targetParent[key] === "object" &&
+                targetParent[key] !== null
+            ) {
                 if (
                     !mutate &&
                     sourceParent !== undefined &&
@@ -73,7 +78,16 @@ export function transform<T extends object>(
         set(path, undefined);
     };
 
-    job({ get, set, destroy });
+    const merge = (path: PropertyPath, value: any): void => {
+        if (value !== null && typeof value === "object") {
+            for (const key of Object.keys(value)) {
+                merge([...path, key], value[key]);
+            }
+        }
+        else set(path, value);
+    };
+
+    job({ get, set, destroy, merge });
 
     return target;
 }
@@ -93,4 +107,13 @@ export function destroyIn<T extends object>(
     mutate = false,
 ): T {
     return transform(obj, ({ destroy }) => destroy(path), mutate);
+}
+
+export function mergeIn<T extends object>(
+    obj: T,
+    path: PropertyPath,
+    value: any,
+    mutate = false,
+): T {
+    return transform(obj, ({ merge }) => merge(path, value), mutate);
 }
