@@ -25,8 +25,6 @@ export function transform<T extends object>(
     job: (transform: Transformer) => void,
     mutate = false,
 ): T {
-    const deleteValue = Symbol();
-
     let target: any = source;
 
     const get = (path: PropertyPath, defaultValue?: any): any => {
@@ -66,13 +64,13 @@ export function transform<T extends object>(
         }
         {
             const key = path[keyIndex];
-            if (value === deleteValue) delete targetParent[key];
+            if (value === undefined) delete targetParent[key];
             else targetParent[key] = value;
         }
     };
 
     const destroy = (path: PropertyPath): void => {
-        set(path, deleteValue);
+        set(path, undefined);
     };
 
     job({ get, set, destroy });
