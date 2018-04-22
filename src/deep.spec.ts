@@ -2,15 +2,30 @@ import * as test from "blue-tape";
 import { destroyIn, getIn, setIn, transform } from "./deep";
 
 test("getIn", async t => {
-    const state = {
-        1: {
-            2: {},
+    interface TestState {
+        t: {
+            [key: string]: true,
+        };
+        f: {
+            [key: string]: false,
+        };
+    }
+
+    const state: TestState = {
+        t: {
+            1: true,
+            2: true,
+        },
+        f: {
+            one: false,
+            two: false,
         },
     };
 
     t.strictEqual(getIn(state, []), state);
-    t.strictEqual(getIn(state, [1]), state[1]);
-    t.strictEqual(getIn(state, [1, 2]), state[1][2]);
+    t.strictEqual(getIn(state, ["t"]), state.t);
+    t.strictEqual(getIn(state, ["t", "2"]), state.t[2]);
+    t.strictEqual(getIn(state, ["f", "2"]), state.t[2]);
 });
 
 test("setIn", async t => {

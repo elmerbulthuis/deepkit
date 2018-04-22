@@ -1,18 +1,96 @@
 export type PropertyPath = PropertyKey[];
 
-export function getIn<T extends object>(
-    target: T,
-    path: PropertyPath,
+//#region getIn
+
+export function getIn<
+    TObject extends object,
+    T1 extends keyof TObject,
+    T2 extends keyof TObject[T1],
+    T3 extends keyof TObject[T1][T2],
+    T4 extends keyof TObject[T1][T2][T3],
+    T5 extends keyof TObject[T1][T2][T3][T4],
+    TDefault = undefined,
+    >(
+        target: TObject,
+        path: [T1, T2, T3, T4, T5],
+        defaultValue?: TDefault,
+): TObject[T1][T2][T3][T4][T5] | TDefault;
+
+export function getIn<
+    TObject extends object,
+    T1 extends keyof TObject,
+    T2 extends keyof TObject[T1],
+    T3 extends keyof TObject[T1][T2],
+    T4 extends keyof TObject[T1][T2][T3],
+    TDefault = undefined,
+    >(
+        target: TObject,
+        path: [T1, T2, T3, T4],
+        defaultValue?: TDefault,
+): TObject[T1][T2][T3][T4] | TDefault;
+
+export function getIn<
+    TObject extends object,
+    T1 extends keyof TObject,
+    T2 extends keyof TObject[T1],
+    T3 extends keyof TObject[T1][T2],
+    TDefault = undefined,
+    >(
+        target: TObject,
+        path: [T1, T2, T3],
+        defaultValue?: TDefault,
+): TObject[T1][T2][T3] | TDefault;
+
+export function getIn<
+    TObject extends object,
+    T1 extends keyof TObject,
+    T2 extends keyof TObject[T1],
+    TDefault = undefined,
+    >(
+        target: TObject,
+        path: [T1, T2],
+        defaultValue?: TDefault,
+): TObject[T1][T2] | TDefault;
+
+export function getIn<
+    TObject extends object,
+    T1 extends keyof TObject,
+    TDefault = undefined,
+    >(
+        target: TObject,
+        path: [T1],
+        defaultValue?: TDefault,
+): TObject[T1] | TDefault;
+
+export function getIn<
+    TObject extends object,
+    TDefault = undefined,
+    >(
+        target: TObject,
+        path: never[],
+        defaultValue?: TDefault,
+): TObject | TDefault;
+
+// export function getIn<TObject extends object>(
+//     target: TObject,
+//     path: PropertyKey[],
+// ): any;
+
+export function getIn<TObject extends object>(
+    target: TObject,
+    path: PropertyKey[],
     defaultValue?: any,
 ): any {
     let found: any = target;
     for (const key of path) {
         if (typeof found !== "object") throw new Error(`${found} is not an object`);
-        if (!(key in found)) return defaultValue;
+        if (found[key] === undefined) return defaultValue;
         found = found[key];
     }
     return found;
 }
+
+//#endregion
 
 export interface Transformer {
     get(path: PropertyPath, defaultValue?: any): any;
@@ -29,7 +107,7 @@ export function transform<T extends object>(
     let target: any = source;
 
     const get = (path: PropertyPath, defaultValue?: any): any => {
-        return getIn(target, path, defaultValue);
+        return getIn(target, path as any, defaultValue);
     };
 
     const set = (path: PropertyPath, value: any): void => {
