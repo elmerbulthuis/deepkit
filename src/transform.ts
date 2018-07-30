@@ -2,8 +2,6 @@ import { getIn, setIn } from "./deep";
 
 export interface Transformer<TObject> {
 
-    //#region overloads
-
     get<
         T1 extends keyof TObject,
         T2 extends keyof TObject[T1],
@@ -57,7 +55,7 @@ export interface Transformer<TObject> {
     get<
         TDefault = undefined,
         >(
-            path: never[],
+            path: [],
             defaultValue?: TDefault,
     ): TObject | TDefault;
 
@@ -113,7 +111,7 @@ export interface Transformer<TObject> {
 
     set(
         target: TObject,
-        path: never[],
+        path: [],
         value: TObject,
     ): void;
 

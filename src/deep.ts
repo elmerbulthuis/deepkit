@@ -67,7 +67,7 @@ export function getIn<
     TDefault = undefined,
     >(
         target: TObject,
-        path: never[],
+        path: [],
         defaultValue?: TDefault,
 ): TObject | TDefault;
 
@@ -153,7 +153,7 @@ export function setIn<
     TObject extends object,
     >(
         target: TObject,
-        path: never[],
+        path: [],
         value: TObject,
         mutate?: boolean,
 ): TObject;
