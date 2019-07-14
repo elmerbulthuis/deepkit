@@ -21,7 +21,6 @@ test("getIn", async t => {
             two: false,
         },
     };
-
     t.strictEqual(getIn(state, []), state);
     t.strictEqual(getIn(state, ["t"]), state.t);
     t.strictEqual(getIn(state, ["t", "2"]), state.t[2]);

@@ -73,11 +73,14 @@ export function getIn<
 
 //#endregion
 
-export function getIn<TObject extends object>(
-    target: TObject,
-    path: PropertyKey[],
-    defaultValue?: any,
-): any {
+export function getIn<
+    TObject extends object,
+    TDefault = undefined,
+    >(
+        target: TObject,
+        path: PropertyKey[],
+        defaultValue?: TDefault,
+): unknown | TDefault {
     let found: any = target;
     for (const key of path) {
         if (typeof found !== "object") throw new Error(`${found} is not an object`);

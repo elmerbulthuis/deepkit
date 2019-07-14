@@ -126,11 +126,21 @@ export function transform<TObject extends object>(
 ): TObject {
     let target: any = source;
 
-    const get = (path: PropertyKey[], defaultValue?: any): any => {
-        return getIn(target, path as any, defaultValue);
+    const get = <TDefault = undefined>(
+        path: PropertyKey[],
+        defaultValue?: TDefault,
+    ): unknown | TDefault => {
+        return getIn(
+            target,
+            path as [],
+            defaultValue,
+        );
     };
 
-    const set = (path: PropertyKey[], value: any): void => {
+    const set = (
+        path: PropertyKey[],
+        value: unknown,
+    ): void => {
         if (path.length === 0) {
             target = value;
             return;
