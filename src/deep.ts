@@ -169,5 +169,9 @@ export function setIn<TObject extends object>(
     value: any,
     mutate = false,
 ): TObject {
-    return transform(obj, set => set(path, value), mutate);
+    return transform(
+        obj,
+        set => set(path as [], value),
+        mutate,
+    );
 }

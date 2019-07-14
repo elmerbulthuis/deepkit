@@ -63,12 +63,12 @@ interface TransformGet<TObject> {
 
     //#endregion
 
-    <
-        TDefault = undefined,
-        >(
-        path: PropertyKey[],
-        defaultValue?: TDefault,
-    ): unknown | TDefault;
+    // <
+    //     TDefault = undefined,
+    //     >(
+    //     path: PropertyKey[],
+    //     defaultValue?: TDefault,
+    // ): unknown | TDefault;
 }
 
 interface TransformSet<TObject> {
@@ -127,10 +127,10 @@ interface TransformSet<TObject> {
 
     //#endregion
 
-    (
-        path: PropertyKey[],
-        value: unknown,
-    ): void;
+    // (
+    //     path: PropertyKey[],
+    //     value: unknown,
+    // ): void;
 }
 
 export function transform<TObject extends object>(
