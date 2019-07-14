@@ -5,6 +5,7 @@
   "main": "./node/main.js",
   "module": "./module/main.js",
   "types": "./types/main.d.ts",
+  "sideEffects": false,
   "scripts": {
     "prepare": "npm run compile",
     "compile": "tsc && tsc --project tsconfig.module.json",
