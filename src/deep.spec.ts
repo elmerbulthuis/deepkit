@@ -24,7 +24,7 @@ test("getIn", async t => {
     t.strictEqual(getIn(state, []), state);
     t.strictEqual(getIn(state, ["t"]), state.t);
     t.strictEqual(getIn(state, ["t", "2"]), state.t[2]);
-    t.strictEqual(getIn(state, ["f", "2"]), state.t[2]);
+    t.strictEqual(getIn(state, ["f", "2"]), state.f[2]);
 });
 
 test("setIn", async t => {
