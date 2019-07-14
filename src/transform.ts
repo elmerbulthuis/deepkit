@@ -104,13 +104,11 @@ export interface Transformer<TObject> {
     set<
         T1 extends keyof TObject,
         >(
-            target: TObject,
             path: [T1],
             value: TObject[T1] | undefined,
     ): void;
 
     set(
-        target: TObject,
         path: [],
         value: TObject,
     ): void;
