@@ -21,7 +21,7 @@ const src: Src = Object.freeze({
 
 test("transformer get", async t => {
 
-    const dst = transform(src, ({ get }) => {
+    const dst = transform(src, (set, get) => {
         t.equal(get(["a"]), "a");
         t.equal(get(["b", "c"]), "bc");
         t.equal(get(["b", "d", "1"]), "bd1");
@@ -38,7 +38,7 @@ test("transformer get", async t => {
 test("transformer set", async t => {
 
     {
-        const dst = transform(src, ({ get, set }) => {
+        const dst = transform(src, (set, get) => {
             set(["a"], "aa");
             t.equal(get(["a"]), "aa");
         });
@@ -52,7 +52,7 @@ test("transformer set", async t => {
     }
 
     {
-        const dst = transform(src, ({ get, set }) => {
+        const dst = transform(src, (set, get) => {
             set(["b", "c"], "cb");
             t.equal(get(["b", "c"]), "cb");
         });

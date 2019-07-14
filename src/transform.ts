@@ -1,8 +1,10 @@
-import { getIn, setIn } from "./deep";
+import { getIn } from "./deep";
 
-export interface Transformer<TObject> {
+interface TransformJob<TObject> {
 
-    get<
+    //#region overloads
+
+    transformGet<
         T1 extends keyof TObject,
         T2 extends keyof TObject[T1],
         T3 extends keyof TObject[T1][T2],
@@ -14,7 +16,7 @@ export interface Transformer<TObject> {
             defaultValue?: TDefault,
     ): TObject[T1][T2][T3][T4][T5] | TDefault;
 
-    get<
+    transformGet<
         T1 extends keyof TObject,
         T2 extends keyof TObject[T1],
         T3 extends keyof TObject[T1][T2],
@@ -25,7 +27,7 @@ export interface Transformer<TObject> {
             defaultValue?: TDefault,
     ): TObject[T1][T2][T3][T4] | TDefault;
 
-    get<
+    transformGet<
         T1 extends keyof TObject,
         T2 extends keyof TObject[T1],
         T3 extends keyof TObject[T1][T2],
@@ -35,7 +37,7 @@ export interface Transformer<TObject> {
             defaultValue?: TDefault,
     ): TObject[T1][T2][T3] | TDefault;
 
-    get<
+    transformGet<
         T1 extends keyof TObject,
         T2 extends keyof TObject[T1],
         TDefault = undefined,
@@ -44,7 +46,7 @@ export interface Transformer<TObject> {
             defaultValue?: TDefault,
     ): TObject[T1][T2] | TDefault;
 
-    get<
+    transformGet<
         T1 extends keyof TObject,
         TDefault = undefined,
         >(
@@ -52,7 +54,7 @@ export interface Transformer<TObject> {
             defaultValue?: TDefault,
     ): TObject[T1] | TDefault;
 
-    get<
+    transformGet<
         TDefault = undefined,
         >(
             path: [],
@@ -63,7 +65,7 @@ export interface Transformer<TObject> {
 
     //#region overloads
 
-    set<
+    transformSet<
         T1 extends keyof TObject,
         T2 extends keyof TObject[T1],
         T3 extends keyof TObject[T1][T2],
@@ -74,7 +76,7 @@ export interface Transformer<TObject> {
             value: TObject[T1][T2][T3][T4][T5] | undefined,
     ): void;
 
-    set<
+    transformSet<
         T1 extends keyof TObject,
         T2 extends keyof TObject[T1],
         T3 extends keyof TObject[T1][T2],
@@ -84,7 +86,7 @@ export interface Transformer<TObject> {
             value: TObject[T1][T2][T3][T4] | undefined,
     ): void;
 
-    set<
+    transformSet<
         T1 extends keyof TObject,
         T2 extends keyof TObject[T1],
         T3 extends keyof TObject[T1][T2],
@@ -93,7 +95,7 @@ export interface Transformer<TObject> {
             value: TObject[T1][T2][T3] | undefined,
     ): void;
 
-    set<
+    transformSet<
         T1 extends keyof TObject,
         T2 extends keyof TObject[T1],
         >(
@@ -101,14 +103,14 @@ export interface Transformer<TObject> {
             value: TObject[T1][T2] | undefined,
     ): void;
 
-    set<
+    transformSet<
         T1 extends keyof TObject,
         >(
             path: [T1],
             value: TObject[T1] | undefined,
     ): void;
 
-    set(
+    transformSet(
         path: [],
         value: TObject,
     ): void;
@@ -119,7 +121,10 @@ export interface Transformer<TObject> {
 
 export function transform<TObject extends object>(
     source: TObject,
-    job: (transform: Transformer<TObject>) => void,
+    job: (
+        set: TransformJob<TObject>["transformSet"],
+        get: TransformJob<TObject>["transformGet"],
+    ) => void,
     mutate = false,
 ): TObject {
     let target: any = source;
@@ -180,7 +185,7 @@ export function transform<TObject extends object>(
         }
     };
 
-    job({ get, set } as Transformer<TObject>);
+    job(set, get);
 
     return target;
 }
