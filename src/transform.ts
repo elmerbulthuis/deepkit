@@ -1,10 +1,10 @@
 import { getIn } from "./deep";
 
-interface TransformJob<TObject> {
+interface TransformGet<TObject> {
 
     //#region overloads
 
-    transformGet<
+    <
         T1 extends keyof TObject,
         T2 extends keyof TObject[T1],
         T3 extends keyof TObject[T1][T2],
@@ -12,118 +12,132 @@ interface TransformJob<TObject> {
         T5 extends keyof TObject[T1][T2][T3][T4],
         TDefault = undefined,
         >(
-            path: [T1, T2, T3, T4, T5],
-            defaultValue?: TDefault,
+        path: [T1, T2, T3, T4, T5],
+        defaultValue?: TDefault,
     ): TObject[T1][T2][T3][T4][T5] | TDefault;
 
-    transformGet<
+    <
         T1 extends keyof TObject,
         T2 extends keyof TObject[T1],
         T3 extends keyof TObject[T1][T2],
         T4 extends keyof TObject[T1][T2][T3],
         TDefault = undefined,
         >(
-            path: [T1, T2, T3, T4],
-            defaultValue?: TDefault,
+        path: [T1, T2, T3, T4],
+        defaultValue?: TDefault,
     ): TObject[T1][T2][T3][T4] | TDefault;
 
-    transformGet<
+    <
         T1 extends keyof TObject,
         T2 extends keyof TObject[T1],
         T3 extends keyof TObject[T1][T2],
         TDefault = undefined,
         >(
-            path: [T1, T2, T3],
-            defaultValue?: TDefault,
+        path: [T1, T2, T3],
+        defaultValue?: TDefault,
     ): TObject[T1][T2][T3] | TDefault;
 
-    transformGet<
+    <
         T1 extends keyof TObject,
         T2 extends keyof TObject[T1],
         TDefault = undefined,
         >(
-            path: [T1, T2],
-            defaultValue?: TDefault,
+        path: [T1, T2],
+        defaultValue?: TDefault,
     ): TObject[T1][T2] | TDefault;
 
-    transformGet<
+    <
         T1 extends keyof TObject,
         TDefault = undefined,
         >(
-            path: [T1],
-            defaultValue?: TDefault,
+        path: [T1],
+        defaultValue?: TDefault,
     ): TObject[T1] | TDefault;
 
-    transformGet<
+    <
         TDefault = undefined,
         >(
-            path: [],
-            defaultValue?: TDefault,
+        path: [],
+        defaultValue?: TDefault,
     ): TObject | TDefault;
 
     //#endregion
 
+    <
+        TDefault = undefined,
+        >(
+        path: PropertyKey[],
+        defaultValue?: TDefault,
+    ): unknown | TDefault;
+}
+
+interface TransformSet<TObject> {
+
     //#region overloads
 
-    transformSet<
+    <
         T1 extends keyof TObject,
         T2 extends keyof TObject[T1],
         T3 extends keyof TObject[T1][T2],
         T4 extends keyof TObject[T1][T2][T3],
         T5 extends keyof TObject[T1][T2][T3][T4],
         >(
-            path: [T1, T2, T3, T4, T5],
-            value: TObject[T1][T2][T3][T4][T5] | undefined,
+        path: [T1, T2, T3, T4, T5],
+        value: TObject[T1][T2][T3][T4][T5] | undefined,
     ): void;
 
-    transformSet<
+    <
         T1 extends keyof TObject,
         T2 extends keyof TObject[T1],
         T3 extends keyof TObject[T1][T2],
         T4 extends keyof TObject[T1][T2][T3],
         >(
-            path: [T1, T2, T3, T4],
-            value: TObject[T1][T2][T3][T4] | undefined,
+        path: [T1, T2, T3, T4],
+        value: TObject[T1][T2][T3][T4] | undefined,
     ): void;
 
-    transformSet<
+    <
         T1 extends keyof TObject,
         T2 extends keyof TObject[T1],
         T3 extends keyof TObject[T1][T2],
         >(
-            path: [T1, T2, T3],
-            value: TObject[T1][T2][T3] | undefined,
+        path: [T1, T2, T3],
+        value: TObject[T1][T2][T3] | undefined,
     ): void;
 
-    transformSet<
+    <
         T1 extends keyof TObject,
         T2 extends keyof TObject[T1],
         >(
-            path: [T1, T2],
-            value: TObject[T1][T2] | undefined,
+        path: [T1, T2],
+        value: TObject[T1][T2] | undefined,
     ): void;
 
-    transformSet<
+    <
         T1 extends keyof TObject,
         >(
-            path: [T1],
-            value: TObject[T1] | undefined,
+        path: [T1],
+        value: TObject[T1] | undefined,
     ): void;
 
-    transformSet(
+    (
         path: [],
         value: TObject,
     ): void;
 
     //#endregion
 
+    (
+        path: PropertyKey[],
+        value: unknown,
+    ): void;
 }
 
 export function transform<TObject extends object>(
     source: TObject,
     job: (
-        set: TransformJob<TObject>["transformSet"],
-        get: TransformJob<TObject>["transformGet"],
+        set: TransformSet<TObject>,
+        get: TransformGet<TObject>,
     ) => void,
     mutate = false,
 ): TObject {
