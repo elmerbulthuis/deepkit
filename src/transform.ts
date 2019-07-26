@@ -10,65 +10,45 @@ interface TransformGet<TObject> {
         T3 extends keyof TObject[T1][T2],
         T4 extends keyof TObject[T1][T2][T3],
         T5 extends keyof TObject[T1][T2][T3][T4],
-        TDefault = undefined,
         >(
         path: [T1, T2, T3, T4, T5],
-        defaultValue?: TDefault,
-    ): TObject[T1][T2][T3][T4][T5] | TDefault;
+    ): TObject[T1][T2][T3][T4][T5];
 
     <
         T1 extends keyof TObject,
         T2 extends keyof TObject[T1],
         T3 extends keyof TObject[T1][T2],
         T4 extends keyof TObject[T1][T2][T3],
-        TDefault = undefined,
         >(
         path: [T1, T2, T3, T4],
-        defaultValue?: TDefault,
-    ): TObject[T1][T2][T3][T4] | TDefault;
+    ): TObject[T1][T2][T3][T4];
 
     <
         T1 extends keyof TObject,
         T2 extends keyof TObject[T1],
         T3 extends keyof TObject[T1][T2],
-        TDefault = undefined,
         >(
         path: [T1, T2, T3],
-        defaultValue?: TDefault,
-    ): TObject[T1][T2][T3] | TDefault;
+    ): TObject[T1][T2][T3];
 
     <
         T1 extends keyof TObject,
         T2 extends keyof TObject[T1],
-        TDefault = undefined,
         >(
         path: [T1, T2],
-        defaultValue?: TDefault,
-    ): TObject[T1][T2] | TDefault;
+    ): TObject[T1][T2];
 
     <
         T1 extends keyof TObject,
-        TDefault = undefined,
         >(
         path: [T1],
-        defaultValue?: TDefault,
-    ): TObject[T1] | TDefault;
+    ): TObject[T1];
 
-    <
-        TDefault = undefined,
-        >(
+    (
         path: [],
-        defaultValue?: TDefault,
-    ): TObject | TDefault;
+    ): TObject;
 
     //#endregion
-
-    // <
-    //     TDefault = undefined,
-    //     >(
-    //     path: PropertyKey[],
-    //     defaultValue?: TDefault,
-    // ): unknown | TDefault;
 }
 
 interface TransformSet<TObject> {
@@ -83,7 +63,7 @@ interface TransformSet<TObject> {
         T5 extends keyof TObject[T1][T2][T3][T4],
         >(
         path: [T1, T2, T3, T4, T5],
-        value: TObject[T1][T2][T3][T4][T5] | undefined,
+        value: TObject[T1][T2][T3][T4][T5],
     ): void;
 
     <
@@ -93,7 +73,7 @@ interface TransformSet<TObject> {
         T4 extends keyof TObject[T1][T2][T3],
         >(
         path: [T1, T2, T3, T4],
-        value: TObject[T1][T2][T3][T4] | undefined,
+        value: TObject[T1][T2][T3][T4],
     ): void;
 
     <
@@ -102,7 +82,7 @@ interface TransformSet<TObject> {
         T3 extends keyof TObject[T1][T2],
         >(
         path: [T1, T2, T3],
-        value: TObject[T1][T2][T3] | undefined,
+        value: TObject[T1][T2][T3],
     ): void;
 
     <
@@ -110,14 +90,14 @@ interface TransformSet<TObject> {
         T2 extends keyof TObject[T1],
         >(
         path: [T1, T2],
-        value: TObject[T1][T2] | undefined,
+        value: TObject[T1][T2],
     ): void;
 
     <
         T1 extends keyof TObject,
         >(
         path: [T1],
-        value: TObject[T1] | undefined,
+        value: TObject[T1],
     ): void;
 
     (
@@ -127,13 +107,9 @@ interface TransformSet<TObject> {
 
     //#endregion
 
-    // (
-    //     path: PropertyKey[],
-    //     value: unknown,
-    // ): void;
 }
 
-export function transform<TObject extends object>(
+export function transform<TObject>(
     source: TObject,
     job: (
         set: TransformSet<TObject>,
@@ -143,14 +119,12 @@ export function transform<TObject extends object>(
 ): TObject {
     let target: any = source;
 
-    const get = <TDefault = undefined>(
+    const get = (
         path: PropertyKey[],
-        defaultValue?: TDefault,
-    ): unknown | TDefault => {
+    ) => {
         return getIn(
             target,
             path as [],
-            defaultValue,
         );
     };
 
@@ -163,7 +137,7 @@ export function transform<TObject extends object>(
             return;
         }
 
-        if (!mutate && target === source) target = { ... (source as object) };
+        if (!mutate && target === source) target = { ...source };
         let targetParent: any = target;
         let sourceParent: any = source;
         let keyIndex = 0;

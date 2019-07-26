@@ -3,88 +3,73 @@ import { transform } from "./transform";
 //#region overloads
 
 export function getIn<
-    TObject extends object,
+    TObject,
     T1 extends keyof TObject,
     T2 extends keyof TObject[T1],
     T3 extends keyof TObject[T1][T2],
     T4 extends keyof TObject[T1][T2][T3],
     T5 extends keyof TObject[T1][T2][T3][T4],
-    TDefault = undefined,
     >(
         target: TObject,
         path: [T1, T2, T3, T4, T5],
-        defaultValue?: TDefault,
-): TObject[T1][T2][T3][T4][T5] | TDefault;
+): TObject[T1][T2][T3][T4][T5];
 
 export function getIn<
-    TObject extends object,
+    TObject,
     T1 extends keyof TObject,
     T2 extends keyof TObject[T1],
     T3 extends keyof TObject[T1][T2],
     T4 extends keyof TObject[T1][T2][T3],
-    TDefault = undefined,
     >(
         target: TObject,
         path: [T1, T2, T3, T4],
-        defaultValue?: TDefault,
-): TObject[T1][T2][T3][T4] | TDefault;
+): TObject[T1][T2][T3][T4];
 
 export function getIn<
-    TObject extends object,
+    TObject,
     T1 extends keyof TObject,
     T2 extends keyof TObject[T1],
     T3 extends keyof TObject[T1][T2],
-    TDefault = undefined,
     >(
         target: TObject,
         path: [T1, T2, T3],
-        defaultValue?: TDefault,
-): TObject[T1][T2][T3] | TDefault;
+): TObject[T1][T2][T3];
 
 export function getIn<
-    TObject extends object,
+    TObject,
     T1 extends keyof TObject,
     T2 extends keyof TObject[T1],
-    TDefault = undefined,
     >(
         target: TObject,
         path: [T1, T2],
-        defaultValue?: TDefault,
-): TObject[T1][T2] | TDefault;
+): TObject[T1][T2];
 
 export function getIn<
-    TObject extends object,
+    TObject,
     T1 extends keyof TObject,
-    TDefault = undefined,
     >(
         target: TObject,
         path: [T1],
-        defaultValue?: TDefault,
-): TObject[T1] | TDefault;
+): TObject[T1];
 
 export function getIn<
-    TObject extends object,
-    TDefault = undefined,
+    TObject,
     >(
         target: TObject,
         path: [],
-        defaultValue?: TDefault,
-): TObject | TDefault;
+): TObject;
 
 //#endregion
 
 export function getIn<
-    TObject extends object,
-    TDefault = undefined,
+    TObject,
     >(
         target: TObject,
         path: PropertyKey[],
-        defaultValue?: TDefault,
-): unknown | TDefault {
+): unknown {
     let found: any = target;
     for (const key of path) {
         if (typeof found !== "object") throw new Error(`${found} is not an object`);
-        if (found[key] === undefined) return defaultValue;
         found = found[key];
     }
     return found;
@@ -93,7 +78,7 @@ export function getIn<
 //#region overloads
 
 export function setIn<
-    TObject extends object,
+    TObject,
     T1 extends keyof TObject,
     T2 extends keyof TObject[T1],
     T3 extends keyof TObject[T1][T2],
@@ -102,12 +87,12 @@ export function setIn<
     >(
         target: TObject,
         path: [T1, T2, T3, T4, T5],
-        value: TObject[T1][T2][T3][T4][T5] | undefined,
+        value: TObject[T1][T2][T3][T4][T5],
         mutate?: boolean,
 ): TObject;
 
 export function setIn<
-    TObject extends object,
+    TObject,
     T1 extends keyof TObject,
     T2 extends keyof TObject[T1],
     T3 extends keyof TObject[T1][T2],
@@ -115,45 +100,45 @@ export function setIn<
     >(
         target: TObject,
         path: [T1, T2, T3, T4],
-        value: TObject[T1][T2][T3][T4] | undefined,
+        value: TObject[T1][T2][T3][T4],
         mutate?: boolean,
 ): TObject;
 
 export function setIn<
-    TObject extends object,
+    TObject,
     T1 extends keyof TObject,
     T2 extends keyof TObject[T1],
     T3 extends keyof TObject[T1][T2],
     >(
         target: TObject,
         path: [T1, T2, T3],
-        value: TObject[T1][T2][T3] | undefined,
+        value: TObject[T1][T2][T3],
         mutate?: boolean,
 ): TObject;
 
 export function setIn<
-    TObject extends object,
+    TObject,
     T1 extends keyof TObject,
     T2 extends keyof TObject[T1],
     >(
         target: TObject,
         path: [T1, T2],
-        value: TObject[T1][T2] | undefined,
+        value: TObject[T1][T2],
         mutate?: boolean,
 ): TObject;
 
 export function setIn<
-    TObject extends object,
+    TObject,
     T1 extends keyof TObject,
     >(
         target: TObject,
         path: [T1],
-        value: TObject[T1] | undefined,
+        value: TObject[T1],
         mutate?: boolean,
 ): TObject;
 
 export function setIn<
-    TObject extends object,
+    TObject,
     >(
         target: TObject,
         path: [],
@@ -163,7 +148,7 @@ export function setIn<
 
 //#endregion
 
-export function setIn<TObject extends object>(
+export function setIn<TObject>(
     obj: TObject,
     path: PropertyKey[],
     value: any,

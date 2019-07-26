@@ -26,7 +26,7 @@ test("transformer get", async t => {
         t.equal(get(["b", "c"]), "bc");
         t.equal(get(["b", "d", "1"]), "bd1");
         t.equal(get([2]), 2);
-        t.equal(get(["b", "d", "3"], 4), 4);
+        t.equal(get(["b", "d", "3"]), undefined);
 
         t.equal(get([]), src);
         t.deepEqual(get(["b", "d"]), { 1: "bd1" });
