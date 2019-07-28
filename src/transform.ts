@@ -133,7 +133,7 @@ interface TransformSet<TObject> {
     // ): void;
 }
 
-export function transform<TObject extends object>(
+export function transform<TObject>(
     source: TObject,
     job: (
         set: TransformSet<TObject>,
@@ -163,7 +163,7 @@ export function transform<TObject extends object>(
             return;
         }
 
-        if (!mutate && target === source) target = { ... (source as object) };
+        if (!mutate && target === source) target = { ...source };
         let targetParent: any = target;
         let sourceParent: any = source;
         let keyIndex = 0;

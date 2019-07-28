@@ -3,11 +3,16 @@ import { getIn, setIn } from "./deep";
 
 test("getIn", async t => {
     interface TestState {
-        t: {
+        t?: {
             [key: string]: true,
         };
         f: {
             [key: string]: false,
+        };
+        a?: {
+            b?: {
+                [key: string]: undefined | number,
+            };
         };
     }
 
@@ -21,10 +26,14 @@ test("getIn", async t => {
             two: false,
         },
     };
+
     t.strictEqual(getIn(state, []), state);
     t.strictEqual(getIn(state, ["t"]), state.t);
-    t.strictEqual(getIn(state, ["t", "2"]), state.t[2]);
+    t.strictEqual(getIn(state, ["t", "2"]), state.t![2]);
     t.strictEqual(getIn(state, ["f", "2"]), state.f[2]);
+    t.strictEqual(getIn(state, ["a", "b", 1]), state.a!.b![1]);
+
+    t.strictEqual(getIn(undefined, []), undefined);
 });
 
 test("setIn", async t => {
@@ -41,4 +50,6 @@ test("setIn", async t => {
         },
     });
     t.strictEqual(state1[1][2], value);
+
+    t.deepEqual(setIn(undefined as any, ["a"], {}, false), { a: {} });
 });

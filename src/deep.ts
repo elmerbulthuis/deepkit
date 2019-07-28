@@ -3,7 +3,7 @@ import { transform } from "./transform";
 //#region overloads
 
 export function getIn<
-    TObject extends object,
+    TObject,
     T1 extends keyof TObject,
     T2 extends keyof TObject[T1],
     T3 extends keyof TObject[T1][T2],
@@ -17,7 +17,7 @@ export function getIn<
 ): TObject[T1][T2][T3][T4][T5] | TDefault;
 
 export function getIn<
-    TObject extends object,
+    TObject,
     T1 extends keyof TObject,
     T2 extends keyof TObject[T1],
     T3 extends keyof TObject[T1][T2],
@@ -30,7 +30,7 @@ export function getIn<
 ): TObject[T1][T2][T3][T4] | TDefault;
 
 export function getIn<
-    TObject extends object,
+    TObject,
     T1 extends keyof TObject,
     T2 extends keyof TObject[T1],
     T3 extends keyof TObject[T1][T2],
@@ -42,7 +42,7 @@ export function getIn<
 ): TObject[T1][T2][T3] | TDefault;
 
 export function getIn<
-    TObject extends object,
+    TObject,
     T1 extends keyof TObject,
     T2 extends keyof TObject[T1],
     TDefault = undefined,
@@ -53,7 +53,7 @@ export function getIn<
 ): TObject[T1][T2] | TDefault;
 
 export function getIn<
-    TObject extends object,
+    TObject,
     T1 extends keyof TObject,
     TDefault = undefined,
     >(
@@ -63,7 +63,7 @@ export function getIn<
 ): TObject[T1] | TDefault;
 
 export function getIn<
-    TObject extends object,
+    TObject,
     TDefault = undefined,
     >(
         target: TObject,
@@ -74,7 +74,7 @@ export function getIn<
 //#endregion
 
 export function getIn<
-    TObject extends object,
+    TObject,
     TDefault = undefined,
     >(
         target: TObject,
@@ -93,7 +93,7 @@ export function getIn<
 //#region overloads
 
 export function setIn<
-    TObject extends object,
+    TObject,
     T1 extends keyof TObject,
     T2 extends keyof TObject[T1],
     T3 extends keyof TObject[T1][T2],
@@ -107,7 +107,7 @@ export function setIn<
 ): TObject;
 
 export function setIn<
-    TObject extends object,
+    TObject,
     T1 extends keyof TObject,
     T2 extends keyof TObject[T1],
     T3 extends keyof TObject[T1][T2],
@@ -120,7 +120,7 @@ export function setIn<
 ): TObject;
 
 export function setIn<
-    TObject extends object,
+    TObject,
     T1 extends keyof TObject,
     T2 extends keyof TObject[T1],
     T3 extends keyof TObject[T1][T2],
@@ -132,7 +132,7 @@ export function setIn<
 ): TObject;
 
 export function setIn<
-    TObject extends object,
+    TObject,
     T1 extends keyof TObject,
     T2 extends keyof TObject[T1],
     >(
@@ -143,7 +143,7 @@ export function setIn<
 ): TObject;
 
 export function setIn<
-    TObject extends object,
+    TObject,
     T1 extends keyof TObject,
     >(
         target: TObject,
@@ -153,7 +153,7 @@ export function setIn<
 ): TObject;
 
 export function setIn<
-    TObject extends object,
+    TObject,
     >(
         target: TObject,
         path: [],
@@ -163,7 +163,7 @@ export function setIn<
 
 //#endregion
 
-export function setIn<TObject extends object>(
+export function setIn<TObject>(
     obj: TObject,
     path: PropertyKey[],
     value: any,
