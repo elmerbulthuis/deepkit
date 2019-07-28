@@ -5,11 +5,11 @@ interface TransformGet<TObject> {
     //#region overloads
 
     <
-        T1 extends keyof TObject,
-        T2 extends keyof TObject[T1],
-        T3 extends keyof TObject[T1][T2],
-        T4 extends keyof TObject[T1][T2][T3],
-        T5 extends keyof TObject[T1][T2][T3][T4],
+        T1 extends keyof Required<TObject>,
+        T2 extends keyof Required<Required<TObject>[T1]>,
+        T3 extends keyof Required<Required<Required<TObject>[T1]>[T2]>,
+        T4 extends keyof Required<Required<Required<Required<TObject>[T1]>[T2]>[T3]>,
+        T5 extends keyof Required<Required<Required<Required<Required<TObject>[T1]>[T2]>[T3]>[T4]>,
         TDefault = undefined,
         >(
         path: [T1, T2, T3, T4, T5],
@@ -17,10 +17,10 @@ interface TransformGet<TObject> {
     ): TObject[T1][T2][T3][T4][T5] | TDefault;
 
     <
-        T1 extends keyof TObject,
-        T2 extends keyof TObject[T1],
-        T3 extends keyof TObject[T1][T2],
-        T4 extends keyof TObject[T1][T2][T3],
+        T1 extends keyof Required<TObject>,
+        T2 extends keyof Required<Required<TObject>[T1]>,
+        T3 extends keyof Required<Required<Required<TObject>[T1]>[T2]>,
+        T4 extends keyof Required<Required<Required<Required<TObject>[T1]>[T2]>[T3]>,
         TDefault = undefined,
         >(
         path: [T1, T2, T3, T4],
@@ -28,9 +28,9 @@ interface TransformGet<TObject> {
     ): TObject[T1][T2][T3][T4] | TDefault;
 
     <
-        T1 extends keyof TObject,
-        T2 extends keyof TObject[T1],
-        T3 extends keyof TObject[T1][T2],
+        T1 extends keyof Required<TObject>,
+        T2 extends keyof Required<Required<TObject>[T1]>,
+        T3 extends keyof Required<Required<Required<TObject>[T1]>[T2]>,
         TDefault = undefined,
         >(
         path: [T1, T2, T3],
@@ -38,8 +38,8 @@ interface TransformGet<TObject> {
     ): TObject[T1][T2][T3] | TDefault;
 
     <
-        T1 extends keyof TObject,
-        T2 extends keyof TObject[T1],
+        T1 extends keyof Required<TObject>,
+        T2 extends keyof Required<Required<TObject>[T1]>,
         TDefault = undefined,
         >(
         path: [T1, T2],
@@ -47,7 +47,7 @@ interface TransformGet<TObject> {
     ): TObject[T1][T2] | TDefault;
 
     <
-        T1 extends keyof TObject,
+        T1 extends keyof Required<TObject>,
         TDefault = undefined,
         >(
         path: [T1],
@@ -76,45 +76,45 @@ interface TransformSet<TObject> {
     //#region overloads
 
     <
-        T1 extends keyof TObject,
-        T2 extends keyof TObject[T1],
-        T3 extends keyof TObject[T1][T2],
-        T4 extends keyof TObject[T1][T2][T3],
-        T5 extends keyof TObject[T1][T2][T3][T4],
+        T1 extends keyof Required<TObject>,
+        T2 extends keyof Required<Required<TObject>[T1]>,
+        T3 extends keyof Required<Required<Required<TObject>[T1]>[T2]>,
+        T4 extends keyof Required<Required<Required<Required<TObject>[T1]>[T2]>[T3]>,
+        T5 extends keyof Required<Required<Required<Required<Required<TObject>[T1]>[T2]>[T3]>[T4]>,
         >(
         path: [T1, T2, T3, T4, T5],
         value: TObject[T1][T2][T3][T4][T5] | undefined,
     ): void;
 
     <
-        T1 extends keyof TObject,
-        T2 extends keyof TObject[T1],
-        T3 extends keyof TObject[T1][T2],
-        T4 extends keyof TObject[T1][T2][T3],
+        T1 extends keyof Required<TObject>,
+        T2 extends keyof Required<Required<TObject>[T1]>,
+        T3 extends keyof Required<Required<Required<TObject>[T1]>[T2]>,
+        T4 extends keyof Required<Required<Required<Required<TObject>[T1]>[T2]>[T3]>,
         >(
         path: [T1, T2, T3, T4],
         value: TObject[T1][T2][T3][T4] | undefined,
     ): void;
 
     <
-        T1 extends keyof TObject,
-        T2 extends keyof TObject[T1],
-        T3 extends keyof TObject[T1][T2],
+        T1 extends keyof Required<TObject>,
+        T2 extends keyof Required<Required<TObject>[T1]>,
+        T3 extends keyof Required<Required<Required<TObject>[T1]>[T2]>,
         >(
         path: [T1, T2, T3],
         value: TObject[T1][T2][T3] | undefined,
     ): void;
 
     <
-        T1 extends keyof TObject,
-        T2 extends keyof TObject[T1],
+        T1 extends keyof Required<TObject>,
+        T2 extends keyof Required<Required<TObject>[T1]>,
         >(
         path: [T1, T2],
         value: TObject[T1][T2] | undefined,
     ): void;
 
     <
-        T1 extends keyof TObject,
+        T1 extends keyof Required<TObject>,
         >(
         path: [T1],
         value: TObject[T1] | undefined,

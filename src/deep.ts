@@ -4,11 +4,11 @@ import { transform } from "./transform";
 
 export function getIn<
     TObject,
-    T1 extends keyof TObject,
-    T2 extends keyof TObject[T1],
-    T3 extends keyof TObject[T1][T2],
-    T4 extends keyof TObject[T1][T2][T3],
-    T5 extends keyof TObject[T1][T2][T3][T4],
+    T1 extends keyof Required<TObject>,
+    T2 extends keyof Required<Required<TObject>[T1]>,
+    T3 extends keyof Required<Required<Required<TObject>[T1]>[T2]>,
+    T4 extends keyof Required<Required<Required<Required<TObject>[T1]>[T2]>[T3]>,
+    T5 extends keyof Required<Required<Required<Required<Required<TObject>[T1]>[T2]>[T3]>[T4]>,
     TDefault = undefined,
     >(
         target: TObject,
@@ -18,10 +18,10 @@ export function getIn<
 
 export function getIn<
     TObject,
-    T1 extends keyof TObject,
-    T2 extends keyof TObject[T1],
-    T3 extends keyof TObject[T1][T2],
-    T4 extends keyof TObject[T1][T2][T3],
+    T1 extends keyof Required<TObject>,
+    T2 extends keyof Required<Required<TObject>[T1]>,
+    T3 extends keyof Required<Required<Required<TObject>[T1]>[T2]>,
+    T4 extends keyof Required<Required<Required<Required<TObject>[T1]>[T2]>[T3]>,
     TDefault = undefined,
     >(
         target: TObject,
@@ -31,9 +31,9 @@ export function getIn<
 
 export function getIn<
     TObject,
-    T1 extends keyof TObject,
-    T2 extends keyof TObject[T1],
-    T3 extends keyof TObject[T1][T2],
+    T1 extends keyof Required<TObject>,
+    T2 extends keyof Required<Required<TObject>[T1]>,
+    T3 extends keyof Required<Required<Required<TObject>[T1]>[T2]>,
     TDefault = undefined,
     >(
         target: TObject,
@@ -43,8 +43,8 @@ export function getIn<
 
 export function getIn<
     TObject,
-    T1 extends keyof TObject,
-    T2 extends keyof TObject[T1],
+    T1 extends keyof Required<TObject>,
+    T2 extends keyof Required<Required<TObject>[T1]>,
     TDefault = undefined,
     >(
         target: TObject,
@@ -54,7 +54,7 @@ export function getIn<
 
 export function getIn<
     TObject,
-    T1 extends keyof TObject,
+    T1 extends keyof Required<TObject>,
     TDefault = undefined,
     >(
         target: TObject,
@@ -94,11 +94,11 @@ export function getIn<
 
 export function setIn<
     TObject,
-    T1 extends keyof TObject,
-    T2 extends keyof TObject[T1],
-    T3 extends keyof TObject[T1][T2],
-    T4 extends keyof TObject[T1][T2][T3],
-    T5 extends keyof TObject[T1][T2][T3][T4],
+    T1 extends keyof Required<TObject>,
+    T2 extends keyof Required<Required<TObject>[T1]>,
+    T3 extends keyof Required<Required<Required<TObject>[T1]>[T2]>,
+    T4 extends keyof Required<Required<Required<Required<TObject>[T1]>[T2]>[T3]>,
+    T5 extends keyof Required<Required<Required<Required<Required<TObject>[T1]>[T2]>[T3]>[T4]>,
     >(
         target: TObject,
         path: [T1, T2, T3, T4, T5],
@@ -108,10 +108,10 @@ export function setIn<
 
 export function setIn<
     TObject,
-    T1 extends keyof TObject,
-    T2 extends keyof TObject[T1],
-    T3 extends keyof TObject[T1][T2],
-    T4 extends keyof TObject[T1][T2][T3],
+    T1 extends keyof Required<TObject>,
+    T2 extends keyof Required<Required<TObject>[T1]>,
+    T3 extends keyof Required<Required<Required<TObject>[T1]>[T2]>,
+    T4 extends keyof Required<Required<Required<Required<TObject>[T1]>[T2]>[T3]>,
     >(
         target: TObject,
         path: [T1, T2, T3, T4],
@@ -121,9 +121,9 @@ export function setIn<
 
 export function setIn<
     TObject,
-    T1 extends keyof TObject,
-    T2 extends keyof TObject[T1],
-    T3 extends keyof TObject[T1][T2],
+    T1 extends keyof Required<TObject>,
+    T2 extends keyof Required<Required<TObject>[T1]>,
+    T3 extends keyof Required<Required<Required<TObject>[T1]>[T2]>,
     >(
         target: TObject,
         path: [T1, T2, T3],
@@ -133,8 +133,8 @@ export function setIn<
 
 export function setIn<
     TObject,
-    T1 extends keyof TObject,
-    T2 extends keyof TObject[T1],
+    T1 extends keyof Required<TObject>,
+    T2 extends keyof Required<Required<TObject>[T1]>,
     >(
         target: TObject,
         path: [T1, T2],
@@ -144,7 +144,7 @@ export function setIn<
 
 export function setIn<
     TObject,
-    T1 extends keyof TObject,
+    T1 extends keyof Required<TObject>,
     >(
         target: TObject,
         path: [T1],
